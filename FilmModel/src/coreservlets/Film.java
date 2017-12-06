@@ -1,7 +1,5 @@
 package coreservlets;
 
-import java.util.*;
-
 public class Film {
 	private String filmId, filmName, filmCredits, filmReview;
 	private int filmYear, filmDuration;
