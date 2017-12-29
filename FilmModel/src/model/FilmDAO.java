@@ -99,5 +99,52 @@ public class FilmDAO {
 
 		return oneFilm;
 	}
+	
+	public ArrayList<Film> getFilmByTitle(String filmTitle) {
+
+		ArrayList<Film> possibleFilms = new ArrayList<Film>();
+		openConnection();
+
+		// Create select statement and execute it
+		try {
+			String selectSQL = "select * from films where title LIKE \"%" + filmTitle + "%\"";
+			ResultSet rs1 = stmt.executeQuery(selectSQL);
+			// Retrieve the results
+			while (rs1.next()) {
+				oneFilm = getNextFilm(rs1);
+				possibleFilms.add(oneFilm);
+			}
+
+			stmt.close();
+			closeConnection();
+		} catch (SQLException se) {
+			System.out.println(se);
+		}
+
+		return possibleFilms;
+	}
+	
+	public int insertFilm(Film f) {
+		int id = f.getId();
+		String title = f.getTitle();
+		int year = f.getYear();
+		String director = f.getDirector();
+		String stars = f.getStars();
+		String review = f.getReview();
+		
+		openConnection();
+		
+		try {
+			String insertSQL = "insert into films values (" + "\"" + id + "\"" + "," + "\"" 
+					+ title + "\"" + "," + "\"" + year + "\"" + "," + "\"" + director + "\"" + "," + "\"" 
+					+ stars + "\"" + "," + "\"" + review + "\"" + ")";
+			System.out.println(insertSQL);
+			int result = stmt.executeUpdate(insertSQL);
+			return result;
+		} catch (SQLException se) {
+			System.out.println(se);
+		}
+		return 0;
+	}
 
 }

@@ -12,7 +12,7 @@ import model.FilmDAO;
 
 public class MainController {
 
-	public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		FilmDAO fdao = new FilmDAO();
 		
