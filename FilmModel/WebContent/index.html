@@ -14,24 +14,24 @@
 	<h1>Getting Film Data</h1>
 	<br/>
 	<form id="films-form">
-	Film Id: <input type="text" id="getAllFilms" name="filmId"/>
-	Film Name: <input type="text" id="getFilmById" name="filmName"/>
+		Film Id: <input type="text" id="filmId"/>
+		Film Name: <input type="text" id="filmName"/>
 	</form>
 	<br/>
 	<div style="width: 60%; height: 35%;">
- 		<div style="float: left; width: 33%;">
+ 		<div class="buttonDiv">
  			<h3>STRING</h3>
 			<button id="all-films-button-string">Get All Films </button><br>
 			<button id="film-by-id-button-string">Get Film By ID</button><br>
 			<button id="film-by-name-button-string">Get Films By Name</button><br>
  		</div>
-	 	<div style="float: left; width: 33%;">
+	 	<div class="buttonDiv">
 	 		<h3>JSON</h3>
 			<button id="all-films-button-json">Get All Films </button><br>
 			<button id="film-by-id-button-json">Get Film By ID</button><br>
 			<button id="film-by-name-button-json">Get Films By Name</button><br>
 	 	</div>
-	 	<div style="float: left; width: 33%;">
+	 	<div class="buttonDiv">
 	 		<h3>XML</h3>
 			<button id="all-films-button-xml">Get All Films </button><br>
 			<button id="film-by-id-button-xml">Get Film By ID</button><br>
@@ -40,7 +40,7 @@
  		<br style="clear: left;" />
 	</div>
 	<br>
-	<div id="div-1"></div>
-	<script>$( "button").button();</script>
+	<div id="result-div"></div>
+	<script>$("button").button();</script>
 </body>
 </html>

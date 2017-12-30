@@ -78,7 +78,7 @@ public class FilmDAO {
 		return allFilms;
 	}
 
-	public Film getFilmByID(int id) {
+	public ArrayList<Film> getFilmByID(int id) {
 
 		openConnection();
 		oneFilm = null;
@@ -96,10 +96,11 @@ public class FilmDAO {
 		} catch (SQLException se) {
 			System.out.println(se);
 		}
-
-		return oneFilm;
+		ArrayList<Film> filmToReturn = new ArrayList<Film>();
+		filmToReturn.add(oneFilm);
+		return filmToReturn;
 	}
-	
+
 	public ArrayList<Film> getFilmByTitle(String filmTitle) {
 
 		ArrayList<Film> possibleFilms = new ArrayList<Film>();
@@ -123,7 +124,7 @@ public class FilmDAO {
 
 		return possibleFilms;
 	}
-	
+
 	public int insertFilm(Film f) {
 		int id = f.getId();
 		String title = f.getTitle();
@@ -131,12 +132,12 @@ public class FilmDAO {
 		String director = f.getDirector();
 		String stars = f.getStars();
 		String review = f.getReview();
-		
+
 		openConnection();
-		
+
 		try {
-			String insertSQL = "insert into films values (" + "\"" + id + "\"" + "," + "\"" 
-					+ title + "\"" + "," + "\"" + year + "\"" + "," + "\"" + director + "\"" + "," + "\"" 
+			String insertSQL = "insert into films values (" + "\"" + id + "\"" + "," + "\""
+					+ title + "\"" + "," + "\"" + year + "\"" + "," + "\"" + director + "\"" + "," + "\""
 					+ stars + "\"" + "," + "\"" + review + "\"" + ")";
 			System.out.println(insertSQL);
 			int result = stmt.executeUpdate(insertSQL);

@@ -1,28 +1,83 @@
 $(function() {
-	$("#num-button-1").click(popUpNumber)
+	$("#all-films-button-string").click(getAllFilmsAsString)
+	$("#film-by-id-button-string").click(getFilmByIdAsString)
+	$("#film-by-name-button-string").click(getFilmsByNameAsString)
+
+	$("#all-films-button-json").click(getAllFilmsAsJson)
+	$("#film-by-id-button-json").click(getFilmByIdAsJson)
+	$("#film-by-name-button-json").click(getFilmsByNameAsJson)
+
+//	$("#all-films-button-xml").click(getAllFilmsAsXml)
+//	$("#film-by-id-button-xml").click(getFilmByIdAsXml)
+//	$("#film-by-name-button-xml").click(getFilmsByNameAsXml)
 })
 
-$(function() {
-	$("#num-button-2").click(insertNumber)
-})
+function insertData(filmData, resultRegion) {
+	console.log("trying to insert");
+	$(resultRegion).html(filmData);
+}
 
-$(function() {
-	$("#names-button").click(showNames)
-})
+function getAllFilmsAsString() {
+	$.ajax({
+		url: "./Controller",
+		success: function(data) { insertData(data, "#result-div") }
+	});
+}
 
-$(function() {
-	$("#names-button-2").click(showNamesSerialize)
-})
+function getFilmByIdAsString() {
+	var formattedUrl = "Controller?id=" + escape($("#filmId").val());
 
-$(function() {
-	$("#names-button-3").click(showNamesLoad)
-})
+	$.ajax({
+		url: formattedUrl,
+		success: function(data) { insertData(data, "#result-div") }
+	});
+}
+
+function getFilmsByNameAsString() {
+	var formattedUrl = "Controller?filmname=" + escape($("#filmName").val());
+
+	$.ajax({
+		url: formattedUrl,
+		success: function(data) { insertData(data, "#result-div") }
+	});
+}
+
+function getAllFilmsAsJson() {
+	$.ajax({
+		url: "./Controller?format=json",
+		success: function(data) { insertData(data, "#result-div") },
+		dataType: "json"
+	});
+}
+
+function getFilmByIdAsJson() {
+	var escapedVal = escape($("#filmId").val());
+	console.log(escapedVal);
+	var formattedUrl = "Controller?format=json&id=" + escape($("#filmId").val());
+	console.log(formattedUrl);
+
+	$.ajax({
+		url: formattedUrl,
+		success: function(data) { insertData(data, "#result-div") },
+		dataType: "json"
+	});
+}
+
+function getFilmsByNameAsJson() {
+	var formattedUrl = "Controller?format=json&filmname=" + escape($("#filmName").val());
+
+	$.ajax({
+		url: formattedUrl,
+		success: function(data) { insertData(data, "#result-div") },
+		dataType: "json"
+	});
+}
 
 function popUpNumber() {
-	function showNum(num) { alert(num); }	
+	function showNum(num) { alert(num); }
 	$.ajax({ url: "./random-num.jsp", success: function(num, code){
-		showNum(num)
-	}})
+		showNum(num);
+	}});
 }
 
 function insertNumber() {

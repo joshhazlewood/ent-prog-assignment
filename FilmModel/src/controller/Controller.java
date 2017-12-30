@@ -22,7 +22,7 @@ import model.FilmDAO;
 @WebServlet("/Controller")
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,33 +37,41 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
+
 		PrintWriter out = response.getWriter();
-		
+
 		FilmDAO fdao = new FilmDAO();
-		
+
 		ArrayList<Film> films = fdao.getAllFilms();
-		
+
 		for(int i = 0; i < films.size(); i++) {
 			Film oneFilm = films.get(i);
 //			System.out.println(oneFilm.toString());
 		}
-		
+
 		Gson gson = new Gson();
 		String allFilmsJson = gson.toJson(films);
-		
-		Film f = fdao.getFilmByID(10013);
-		
+
+		ArrayList<Film> f = fdao.getFilmByID(10013);
+
 //		films = fdao.getFilmByTitle("187");
 //		Film insertFilm = new Film(11312, "Test Film Title", 2018, "DIRECTOR1", "STARS LIST 1", "EXTENSIVE REVIEW TEST");
 //		int result = fdao.insertFilm(insertFilm);
 //		System.out.println("did it insert correctly?" + result);
-		
+
 		String searchFilmname = request.getParameter("filmname");
 		if (searchFilmname != null) {
+			System.out.println("film name isn't null");
 			films = fdao.getFilmByTitle(searchFilmname);
 		}
-		
+
+		String filmId = request.getParameter("id");
+		if (filmId != null) {
+			System.out.println("film id isn't null");
+			int filmIdAsInt = Integer.parseInt(filmId);
+			films = fdao.getFilmByID(filmIdAsInt);
+		}
+
 		request.setAttribute("films", films);
 	    String format = request.getParameter("format");
 	    String outputPage;

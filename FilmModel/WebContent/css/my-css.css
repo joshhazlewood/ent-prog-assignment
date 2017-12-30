@@ -1,8 +1,13 @@
 body {
-	padding-left: 5%;
+	padding-left: 0.5em;
 	min-height: 500px;
 }
 
 .ui-button {
 	margin-bottom: 0.5em;
+}
+
+.buttonDiv {
+	float: left;
+	width: 33%;
 }
