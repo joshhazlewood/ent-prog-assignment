@@ -7,7 +7,7 @@
 	Film oneFilm = null;
 	for (int i=0; i<films.size();i++){
 		oneFilm = films.get(i);
-		out.println(oneFilm.getId() + "#" + oneFilm.getTitle() + "#" + oneFilm.getYear() + "#" + oneFilm.getDirector() + "#" + oneFilm.getStars() + oneFilm.getReview());	
+		out.println(oneFilm.getId() + "#" + oneFilm.getTitle() + "#" + oneFilm.getYear() + "#" + oneFilm.getDirector() + "#" + oneFilm.getStars() + "#" + oneFilm.getReview());	
 	}
 
 %>

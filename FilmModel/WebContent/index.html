@@ -4,6 +4,10 @@
 <meta charset="ISO-8859-1">
 <script src="external/jquery/jquery.js"></script>
 <script src="scripts/myjquery.js"></script>
+<script src="scripts/jquery-ui.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css"/>
+<link rel="stylesheet" href="css/jquery-ui.theme.css"/>
+<link rel="stylesheet" href="css/my-css.css"/>
 <title>Film Data</title>
 </head>
 <body>
@@ -14,9 +18,29 @@
 	Film Name: <input type="text" id="getFilmById" name="filmName"/>
 	</form>
 	<br/>
-	<input type="button" value="Get All Films" id="all-films-button"/>
-	<input type="button" value="Get Film By Id" id="id-films-button"/>
-	<input type="button" value="Get Film By Name" id="name-films-button"/>
+	<div style="width: 60%; height: 35%;">
+ 		<div style="float: left; width: 33%;">
+ 			<h3>STRING</h3>
+			<button id="all-films-button-string">Get All Films </button><br>
+			<button id="film-by-id-button-string">Get Film By ID</button><br>
+			<button id="film-by-name-button-string">Get Films By Name</button><br>
+ 		</div>
+	 	<div style="float: left; width: 33%;">
+	 		<h3>JSON</h3>
+			<button id="all-films-button-json">Get All Films </button><br>
+			<button id="film-by-id-button-json">Get Film By ID</button><br>
+			<button id="film-by-name-button-json">Get Films By Name</button><br>
+	 	</div>
+	 	<div style="float: left; width: 33%;">
+	 		<h3>XML</h3>
+			<button id="all-films-button-xml">Get All Films </button><br>
+			<button id="film-by-id-button-xml">Get Film By ID</button><br>
+			<button id="film-by-name-button-xml">Get Films By Name</button><br>
+	 	</div>
+ 		<br style="clear: left;" />
+	</div>
+	<br>
 	<div id="div-1"></div>
+	<script>$( "button").button();</script>
 </body>
 </html>
