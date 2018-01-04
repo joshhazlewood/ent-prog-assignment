@@ -94,34 +94,57 @@ function getAllFilmsAsXml() {
 
 function getFilmByIdAsXml() {
 	var escapedVal = escape($("#filmId").val());
-	var formattedUrl = "getFilmById?format=xml&id="
-			+ escape($("#filmId").val());
+	var address = "getFilmById";
+	var format = "format=xml&id=" + escapedVal;
+	
+	$.ajax({
+		url: address,
+		method: "GET",
+		data: format
+	}).then(data => showXmlFilmInfo(data, "#result-div"));
 
-	var req = $.ajax({
-		url : formattedUrl,
-		dataType : "xml"
-	});
-	req.done(function(data) {
-		insertData(data, "#result-div")
-	});
+//	var req = $.ajax({
+//		url : formattedUrl,
+//		dataType : "xml"
+//	});
+//	req.done(function(data) {
+//		insertData(data, "#result-div")
+//	});
 }
 
 function getFilmsByNameAsXml() {
-	var formattedUrl = "getFilmsByName?format=xml&name="
-			+ escape($("#filmName").val());
-
-	var req = $.ajax({
-		url : formattedUrl,
-		dataType : "xml"
-	});
-	req.done(function() {
-		showXmlFilmInfo(req, "#result-div")
-	});
+	
+	var escapedVal = escape($("#filmName").val());
+	if(escapedVal == "") {
+		alert("Please enter a value before searching by name.");		
+	} else {
+		var address = "getFilmsByName";
+		var format = "format=xml&name=" + escapedVal;
+		
+		$.ajax({
+			url: address,
+			method: "GET",
+			data: format
+		}).then(data => showXmlFilmInfo(data, "#result-div"),
+				alert("No Films found by that name."));
+	}
+	
+	
+//	var formattedUrl = "getFilmsByName?format=xml&name="
+//			+ escape($("#filmName").val());
+//
+//	var req = $.ajax({
+//		url : formattedUrl,
+//		dataType : "xml"
+//	});
+//	req.done(function() {
+//		showXmlFilmInfo(req, "#result-div")
+//	});
 }
 
 function showXmlFilmInfo(data, resultRegion) {	
  	var films = data.getElementsByTagName("film");
- 	var headings = new Array("id", "title", "year", "director", "stars", "review");
+ 	var headings = new Array("ID", "Title", "Year", "Director", "Stars", "Review");
 	var rows = new Array(films.length);
 	var subElementNames = [ "id", "title", "year", "director", "stars", "review" ];
 	for (var i = 0; i < films.length; i++) {

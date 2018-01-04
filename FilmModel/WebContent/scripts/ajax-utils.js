@@ -20,8 +20,6 @@ function htmlInsert(id, htmlData) {
 }
 
 function insertData(filmData, resultRegion) {
-	console.log("trying to insert");
-	console.log(filmData);
 	$(resultRegion).html(filmData);
 }
 
