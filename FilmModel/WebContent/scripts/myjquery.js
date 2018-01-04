@@ -97,12 +97,20 @@ function getFilmByIdAsXml() {
 	var address = "getFilmById";
 	var format = "format=xml&id=" + escapedVal;
 	
-	$.ajax({
-		url: address,
-		method: "GET",
-		data: format
-	}).then(data => showXmlFilmInfo(data, "#result-div"));
-
+	if(escapedVal == "") {
+		alert("Please enter a number before searching by ID.");
+	} else {
+		$.ajax({
+			url: address,
+			method: "GET",
+			data: format
+		}).then( data => {
+			showXmlFilmInfo(data, "#result-div");		
+		}, reason => {
+			alert("No Film found by that ID.");
+		} );
+	}
+	
 //	var req = $.ajax({
 //		url : formattedUrl,
 //		dataType : "xml"
@@ -113,8 +121,8 @@ function getFilmByIdAsXml() {
 }
 
 function getFilmsByNameAsXml() {
-	
 	var escapedVal = escape($("#filmName").val());
+	
 	if(escapedVal == "") {
 		alert("Please enter a value before searching by name.");		
 	} else {
@@ -125,31 +133,27 @@ function getFilmsByNameAsXml() {
 			url: address,
 			method: "GET",
 			data: format
-		}).then(data => showXmlFilmInfo(data, "#result-div"),
-				alert("No Films found by that name."));
-	}
-	
-	
-//	var formattedUrl = "getFilmsByName?format=xml&name="
-//			+ escape($("#filmName").val());
-//
-//	var req = $.ajax({
-//		url : formattedUrl,
-//		dataType : "xml"
-//	});
-//	req.done(function() {
-//		showXmlFilmInfo(req, "#result-div")
-//	});
+		}).then( data => {
+				showXmlFilmInfo(data, "#result-div");
+		}, reason => {
+			alert("Error retriving data from the server.");
+		} );
+	}	
 }
 
-function showXmlFilmInfo(data, resultRegion) {	
+function showXmlFilmInfo(data, resultRegion) {
  	var films = data.getElementsByTagName("film");
- 	var headings = new Array("ID", "Title", "Year", "Director", "Stars", "Review");
-	var rows = new Array(films.length);
-	var subElementNames = [ "id", "title", "year", "director", "stars", "review" ];
-	for (var i = 0; i < films.length; i++) {
-		rows[i] = getElementValues(films[i], subElementNames);
-	}
-	var table = getTable(headings, rows);
-	insertData(table, resultRegion);
+ 	
+ 	if( films.length != 0 ) {
+ 		var headings = new Array("ID", "Title", "Year", "Director", "Stars", "Review");
+ 		var rows = new Array(films.length);
+ 		var subElementNames = [ "id", "title", "year", "director", "stars", "review" ];
+ 		for (var i = 0; i < films.length; i++) {
+ 			rows[i] = getElementValues(films[i], subElementNames);
+ 		}
+ 		var table = getTable(headings, rows);
+ 		insertData(table, resultRegion); 		
+ 	} else {
+ 		alert("No Films found by that name.");
+ 	}
 }
