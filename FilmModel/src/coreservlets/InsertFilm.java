@@ -34,6 +34,18 @@ public class InsertFilm extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
+
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		doGet(request, response);
 		FilmDAO fdao = new FilmDAO();
 
 		String id = request.getParameter("id");
@@ -49,26 +61,18 @@ public class InsertFilm extends HttpServlet {
 
 			Film filmToInsert = new Film(idAsInt, title, yearAsInt, director, stars, review);
 			int result = fdao.insertFilm(filmToInsert);
+			response.setContentType("text/plain");
 			
 			if(result == 1) {
+				response.getWriter().println("Inserted");
 				System.out.println("Film was correctly inserted into the database.");
 			} else {
+				response.getWriter().println("NotInserted");
 				System.out.println("Film was not correctly inserted into the database.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

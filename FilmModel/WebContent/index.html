@@ -6,42 +6,83 @@
 <script src="scripts/myjquery.js"></script>
 <script src="scripts/jquery-ui.js"></script>
 <script src="scripts/ajax-utils.js"></script>
-<link rel="stylesheet" href="css/jquery-ui.css"/>
-<link rel="stylesheet" href="css/jquery-ui.theme.css"/>
-<link rel="stylesheet" href="css/my-css.css"/>
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<link rel="stylesheet" href="css/jquery-ui.theme.css" />
+<link rel="stylesheet" href="css/my-css.css" />
 <title>Film Data</title>
 </head>
 <body>
-	<h1>Getting Film Data</h1>
-	<br/>
-	<form id="films-form">
-		Film Id: <input type="text" id="filmId"/>
-		Film Name: <input type="text" id="filmName"/>
-	</form>
-	<br/>
-	<div style="width: 60%; height: 35%;">
- 		<div class="buttonDiv">
- 			<h3>STRING</h3>
-			<button id="all-films-button-string">Get All Films </button><br>
-			<button id="film-by-id-button-string">Get Film By ID</button><br>
-			<button id="film-by-name-button-string">Get Films By Name</button><br>
- 		</div>
-	 	<div class="buttonDiv">
-	 		<h3>JSON</h3>
-			<button id="all-films-button-json">Get All Films </button><br>
-			<button id="film-by-id-button-json">Get Film By ID</button><br>
-			<button id="film-by-name-button-json">Get Films By Name</button><br>
-	 	</div>
-	 	<div class="buttonDiv">
-	 		<h3>XML</h3>
-			<button id="all-films-button-xml">Get All Films </button><br>
-			<button id="film-by-id-button-xml">Get Film By ID</button><br>
-			<button id="film-by-name-button-xml">Get Films By Name</button><br>
-	 	</div>
- 		<br style="clear: left;" />
+	<h1 id="title">Film Data API</h1>
+	<br />
+	<div id="insertDiv">
+		<form id="insert-form">
+			<fieldset>
+				<legend>Insert film into database</legend>
+				<label for="insertId">Id:</label> <input type="text" name="id"
+					id="insertId" /> <label for="insertName">Name:</label> <input
+					type="text" name="title" id="insertName" /> <label for="insertYear">Year:</label>
+				<input type="text" name="year" id="insertYear" /> <label
+					for="insertDirector">Director:</label> <input type="text"
+					name="director" id="insertDirector" /> <label for="insertStars">Stars:</label>
+				<input type="text" name="stars" id="insertStars" /> <label
+					for="insertReview">Review:</label> <input type="text" name="review"
+					id="insertReview" /><br>
+				<button id="insert-film-button">Insert</button>
+			</fieldset>
+		</form>
+
 	</div>
+	<div id="searchDiv">
+		<form id="films-form">
+			<fieldset>
+				<legend>Search</legend>
+				<label for="filmId">Film Id:</label> <input type="text" id="filmId" />
+
+				<label for="filmId">Film Name:</label> <input type="text"
+					id="filmName" />
+			</fieldset>
+
+		</form>
+		<div style="width: 60%; height: 35%;">
+			<div class="buttonDiv">
+				<h3>STRING</h3>
+				<button id="all-films-button-string">Get All Films</button>
+				<br>
+				<button id="film-by-id-button-string">Get Film By ID</button>
+				<br>
+				<button id="film-by-name-button-string">Get Films By Name</button>
+				<br>
+			</div>
+			<div class="buttonDiv">
+				<h3>JSON</h3>
+				<button id="all-films-button-json">Get All Films</button>
+				<br>
+				<button id="film-by-id-button-json">Get Film By ID</button>
+				<br>
+				<button id="film-by-name-button-json">Get Films By Name</button>
+				<br>
+			</div>
+			<div class="buttonDiv">
+				<h3>XML</h3>
+				<button id="all-films-button-xml">Get All Films</button>
+				<br>
+				<button id="film-by-id-button-xml">Get Film By ID</button>
+				<br>
+				<button id="film-by-name-button-xml">Get Films By Name</button>
+				<br>
+			</div>
+			<br style="clear: left;" />
+		</div>
+	</div>
+	<br />
 	<br>
+	<h2 id="working" style="display: none">
+		<img src="images/ajax-loader.gif" /> Waiting for server...
+	</h2>
 	<div id="result-div"></div>
-	<script>$("button").button();</script>
+	<script>
+		$("button").button();
+		$("#searchDiv", "#insertDiv").controlgroup();
+	</script>
 </body>
 </html>

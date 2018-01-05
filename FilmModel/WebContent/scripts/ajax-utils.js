@@ -141,3 +141,8 @@ function buildHtmlTableFromJson( films ) {
 	table += "</table>";
 	return table;
 }
+
+function showWorkingGif() {
+	$("#result-div").empty();
+	$("#working").show();
+}
