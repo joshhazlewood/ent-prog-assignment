@@ -118,3 +118,26 @@ function getTableBody(rows) {
   }
   return(body);
 }
+
+function buildHtmlTableFromJson( films ) {
+	var headings = new Array("ID", "Title", "Year", "Director", "Stars", "Review");
+	var rows = new Array(films.length);
+	var subElementNames = [ "id", "title", "year", "director", "stars", "review" ];
+	
+	var table = "<table border='1' class='ajaxTable'>\n"
+	table += getTableHeadings(headings);
+	
+	for ( film in films ) {
+		table +=  "<tr>" +
+					"<td>" + films[film].id + "</td>" +
+					"<td>" + films[film].title + "</td>" +
+					"<td>" + films[film].year + "</td>" +
+					"<td>" + films[film].director + "</td>" +
+					"<td>" + films[film].stars + "</td>" +
+					"<td>" + films[film].review + "</td>" +
+				"</tr>\n"; 
+	}
+	
+	table += "</table>";
+	return table;
+}

@@ -36,11 +36,12 @@ public class GetFilmById extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		FilmDAO fdao = new FilmDAO();
+		ArrayList<Film> film;
 		
 		String filmId = request.getParameter("id");
 		// ADD ERROR HANDLING HERE FOR PARSING INT?
 		int filmIdAsInt = Integer.parseInt(filmId);
-		ArrayList<Film> film = fdao.getFilmByID(filmIdAsInt);
+		film = fdao.getFilmByID(filmIdAsInt);
 		
 		request.setAttribute("films", film);
 		String format = request.getParameter("format");
