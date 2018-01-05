@@ -45,27 +45,53 @@ function getFilmsByNameAsString() {
 }
 
 function getAllFilmsAsJson() {
-	var req = $.ajax({
-		url : "./getAllFilms?format=json",
-		dataType : "json"
-	});
-	req.done(function(data) {
-		insertData(data, "#result-div")
+	var address = "getAllFilms";
+	var format = "format=json";
+	
+	$.ajax({
+		url: address,
+		method: "GET",
+		data: format
+	}).then(data => { 
+		showJsonFilmInfo(data, "#result-div");
+	}, error => {
+		alert("Error retriving data from the server.");
 	});
 }
 
 function getFilmByIdAsJson() {
 	var escapedVal = escape($("#filmId").val());
-	var formattedUrl = "getFilmById?format=json&id="
-			+ escape($("#filmId").val());
-
-	var req = $.ajax({
-		url : formattedUrl,
-		dataType : "json"
-	});
-	req.done(function(data) {
-		insertData(data, "#result-div")
-	});
+	var address = "getFilmById";
+	var format = "format=json&id=" + escapedVal.toString();	
+	var isNum = /^[0-9]+$/.test(escapedVal);
+//	console.log(isNum);
+//	console.log(escapedVal);
+	if( escapedVal == "" || !isNum ) {
+		alert( "Please enter a number before searching by ID." );
+		$("#filmId").val("");
+	} else {
+		$.ajax({
+			url: address,
+			method: "GET",
+			data: format
+		}).then( data => {
+				showJsonFilmInfo( data, "#result-div", "No films found by that ID." );
+		}, error => {
+			alert( "Error retriving data from the server." );
+		} );
+	}
+	
+//	var escapedVal = escape($("#filmId").val());
+//	var formattedUrl = "getFilmById?format=json&id="
+//			+ escape($("#filmId").val());
+//
+//	var req = $.ajax({
+//		url : formattedUrl,
+//		dataType : "json"
+//	});
+//	req.done(function(data) {
+//		insertData(data, "#result-div")
+//	});
 }
 
 function getFilmsByNameAsJson() {
@@ -89,42 +115,40 @@ function getAllFilmsAsXml() {
 		url: address,
 		method: "GET",
 		data: format
-	}).then(data => showXmlFilmInfo(data, "#result-div"));
+	}).then(data => { 
+		showXmlFilmInfo(data, "#result-div");
+	}, error => {
+		alert("Error retriving data from the server.");
+	});
 }
 
 function getFilmByIdAsXml() {
 	var escapedVal = escape($("#filmId").val());
 	var address = "getFilmById";
-	var format = "format=xml&id=" + escapedVal;
+	var format = "format=xml&id=" + escapedVal;	
+	var isnum = /^[0-9]$/.test(escapedVal);
 	
-	if(escapedVal == "") {
-		alert("Please enter a number before searching by ID.");
+	if( escapedVal == "" || !isnum ) {
+		alert( "Please enter a number before searching by ID." );
+		$("#filmId").val("");
 	} else {
 		$.ajax({
 			url: address,
 			method: "GET",
 			data: format
 		}).then( data => {
-			showXmlFilmInfo(data, "#result-div");		
-		}, reason => {
-			alert("No Film found by that ID.");
+				showXmlFilmInfo( data, "#result-div", "No films found by that ID." );
+		}, error => {
+			alert( "Error retriving data from the server." );
 		} );
 	}
-	
-//	var req = $.ajax({
-//		url : formattedUrl,
-//		dataType : "xml"
-//	});
-//	req.done(function(data) {
-//		insertData(data, "#result-div")
-//	});
 }
 
 function getFilmsByNameAsXml() {
 	var escapedVal = escape($("#filmName").val());
 	
 	if(escapedVal == "") {
-		alert("Please enter a value before searching by name.");		
+		alert( "Please enter a value before searching by name." );
 	} else {
 		var address = "getFilmsByName";
 		var format = "format=xml&name=" + escapedVal;
@@ -134,26 +158,100 @@ function getFilmsByNameAsXml() {
 			method: "GET",
 			data: format
 		}).then( data => {
-				showXmlFilmInfo(data, "#result-div");
+				showXmlFilmInfo( data, "#result-div", "No films found by that name." );
 		}, reason => {
-			alert("Error retriving data from the server.");
+			alert( "Error retriving data from the server." );
 		} );
 	}	
 }
 
-function showXmlFilmInfo(data, resultRegion) {
+function showXmlFilmInfo( data, resultRegion, errorMessage ) {
  	var films = data.getElementsByTagName("film");
  	
  	if( films.length != 0 ) {
  		var headings = new Array("ID", "Title", "Year", "Director", "Stars", "Review");
  		var rows = new Array(films.length);
  		var subElementNames = [ "id", "title", "year", "director", "stars", "review" ];
+ 		
  		for (var i = 0; i < films.length; i++) {
  			rows[i] = getElementValues(films[i], subElementNames);
  		}
+ 		
  		var table = getTable(headings, rows);
  		insertData(table, resultRegion); 		
  	} else {
- 		alert("No Films found by that name.");
+ 		alert(errorMessage);
  	}
 }
+
+function showJsonFilmInfo( data, resultRegion, errorMessage ) {
+	var films = data;
+	console.log("films is empty =  ");
+	console.log(Object.keys(films).toString());
+	console.log(Object.keys(films).toString() == "0");
+	var filmFound = Object.keys(films).toString() != "0";
+	console.log("film found? " + filmFound);
+	if( filmFound == true  ) {
+		var headings = new Array("ID", "Title", "Year", "Director", "Stars", "Review");
+		var rows = new Array(films.length);
+		var subElementNames = [ "id", "title", "year", "director", "stars", "review" ];
+		
+		var table = "<table border='1' class='ajaxTable'>\n"
+		table += getTableHeadings(headings);
+		
+		for ( film in films ) {
+			table +=  "<tr>" +
+						"<td>" + films[film].id + "</td>" +
+						"<td>" + films[film].title + "</td>" +
+						"<td>" + films[film].year + "</td>" +
+						"<td>" + films[film].director + "</td>" +
+						"<td>" + films[film].stars + "</td>" +
+						"<td>" + films[film].review + "</td>" +
+					"</tr>\n"; 
+		}
+		
+		table += "</table>";
+		insertData(table, resultRegion);
+	} else {
+		alert(errorMessage);
+	}
+	
+
+//	
+//	for (var i = 0; i < films.length; i++) {
+//		rows[i] = getValues(films[i], subElementNames[i]);
+//	}
+
+	
+//	var table = getTable(headings, rows);
+//	insertData(table, resultRegion); 	
+		
+//	console.log(rows.length);
+//	console.log(films);
+}
+
+//function getValues(element, subElementNames) {
+//	var values = new Array(subElementNames.length);
+//	
+//	for(name in subElementNames) {
+//		values[i] = name.id;
+//	}
+//	
+//	for( var i = 0; i < subElementNames.length; i++ ) {
+//		var name = subElementNames[i];
+//		var subElement = element[i][name];
+//		values[i] = subElement;
+//	}
+//	return (values);
+//}
+
+
+
+
+
+
+
+
+
+
+
