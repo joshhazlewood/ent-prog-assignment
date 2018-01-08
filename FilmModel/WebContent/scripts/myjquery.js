@@ -24,7 +24,7 @@ function getAllFilmsAsString() {
 	}).then(data => { 
 		showStringFilmInfo(data, "#result-div");
 	}, error => {
-		$("#working").hide();
+		hideWorkingGif();
 		alert("Error retriving data from the server.");
 	});
 }
@@ -47,7 +47,7 @@ function getFilmByIdAsString() {
 		}).then( data => {
 				showStringFilmInfo( data, "#result-div", "No films found by that ID." );
 		}, error => {
-			$("#working").hide();
+			hideWorkingGif();
 			alert( "Error retriving data from the server." );
 		} );
 	}
@@ -70,7 +70,7 @@ function getFilmsByNameAsString() {
 		}).then( data => {
 				showStringFilmInfo( data, "#result-div", "No films found by that name." );
 		}, error => {
-			$("#working").hide();
+			hideWorkingGif();
 			alert( "Error retriving data from the server." );
 		} );
 	}
@@ -88,7 +88,7 @@ function getAllFilmsAsJson() {
 	}).then(data => { 
 		showJsonFilmInfo(data, "#result-div", "", "id");
 	}, error => {
-		$("#working").hide();
+		hideWorkingGif();
 		alert("Error retriving data from the server.");
 	});
 }
@@ -111,7 +111,7 @@ function getFilmByIdAsJson() {
 		}).then( data => {
 				showJsonFilmInfo( data, "#result-div", "No films found by that ID.", "id" );
 		}, error => {
-			$("#working").hide();
+			hideWorkingGif();
 			alert( "Error retriving data from the server." );
 		} );
 	}
@@ -134,7 +134,7 @@ function getFilmsByNameAsJson() {
 		}).then( data => {
 				showJsonFilmInfo( data, "#result-div", "No films found by that name.", "name" );
 		}, error => {
-			$("#working").hide();
+			hideWorkingGif();
 			alert( "Error retriving data from the server." );
 		} );
 	}
@@ -152,7 +152,7 @@ function getAllFilmsAsXml() {
 	}).then(data => { 
 		showXmlFilmInfo(data, "#result-div");
 	}, error => {
-		$("#working").hide();
+		hideWorkingGif();
 		alert("Error retriving data from the server.");
 	});
 }
@@ -175,7 +175,7 @@ function getFilmByIdAsXml() {
 		}).then( data => {
 				showXmlFilmInfo( data, "#result-div", "No films found by that ID." );
 		}, error => {
-			$("#working").hide();
+			hideWorkingGif();
 			alert( "Error retriving data from the server." );
 		} );
 	}
@@ -198,7 +198,7 @@ function getFilmsByNameAsXml() {
 		}).then( data => {
 				showXmlFilmInfo( data, "#result-div", "No films found by that name." );
 		}, reason => {
-			$("#working").hide();
+			hideWorkingGif();
 			alert( "Error retriving data from the server." );
 		} );
 	}	
@@ -217,10 +217,10 @@ function showXmlFilmInfo( data, resultRegion, errorMessage ) {
  		}
  		
  		var table = getTable(headings, rows);
- 		$("#working").hide();
+ 		hideWorkingGif();
  		insertData(table, resultRegion); 		
  	} else {
- 		$("#working").hide();
+ 		hideWorkingGif();
  		alert(errorMessage);
  	}
 }
@@ -240,10 +240,10 @@ function showJsonFilmInfo( data, resultRegion, errorMessage, apiType ) {
 	
 	if( filmIsReturned === true  ) {
 		table = buildHtmlTableFromJson(films);
-		$("#working").hide();
+		hideWorkingGif();
 		insertData(table, resultRegion);
 	} else {
-		$("#working").hide();
+		hideWorkingGif();
 		alert(errorMessage);
 	}
 }
@@ -282,10 +282,10 @@ function insertFilm() {
 			method: "POST",
 			data: filmData
 		}).then(data => { 
-			$("#working").hide();
+			hideWorkingGif();
 			alert("Film was correctly inserted into the database.")
 		}, error => {
-			$("#working").hide();
+			hideWorkingGif();
 			alert("Error inserting data from the server.");
 		});
 	} else {

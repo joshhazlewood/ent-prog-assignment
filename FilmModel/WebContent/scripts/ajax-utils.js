@@ -146,3 +146,7 @@ function showWorkingGif() {
 	$("#result-div").empty();
 	$("#working").show();
 }
+
+function hideWorkingGif() {
+	$("#working").hide();
+}
