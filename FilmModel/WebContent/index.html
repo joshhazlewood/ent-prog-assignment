@@ -1,88 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<script src="external/jquery/jquery.js"></script>
-<script src="scripts/myjquery.js"></script>
-<script src="scripts/jquery-ui.js"></script>
-<script src="scripts/ajax-utils.js"></script>
-<link rel="stylesheet" href="css/jquery-ui.css" />
-<link rel="stylesheet" href="css/jquery-ui.theme.css" />
-<link rel="stylesheet" href="css/my-css.css" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 <title>Film Data</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/my-css.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-	<h1 id="title">Film Data API</h1>
-	<br />
-	<div id="insertDiv">
-		<form id="insert-form">
-			<fieldset>
-				<legend>Insert film into database</legend>
-				<label for="insertId">Id:</label> <input type="text" name="id"
-					id="insertId" /> <label for="insertName">Name:</label> <input
-					type="text" name="title" id="insertName" /> <label for="insertYear">Year:</label>
-				<input type="text" name="year" id="insertYear" /> <label
-					for="insertDirector">Director:</label> <input type="text"
-					name="director" id="insertDirector" /> <label for="insertStars">Stars:</label>
-				<input type="text" name="stars" id="insertStars" /> <label
-					for="insertReview">Review:</label> <input type="text" name="review"
-					id="insertReview" /><br>
-				<button id="insert-film-button">Insert</button>
-			</fieldset>
-		</form>
 
+	<div class="page-header">
+		<h1>Film Data API</h1>
 	</div>
-	<div id="searchDiv">
-		<form id="films-form">
-			<fieldset>
-				<legend>Search</legend>
-				<label for="filmId">Film Id:</label> <input type="text" id="filmId" />
 
-				<label for="filmId">Film Name:</label> <input type="text"
-					id="filmName" />
-			</fieldset>
+	<div class="container">
+		<div id="navDiv">
+			<ul class="nav nav-pills">
+				<li role="presentation" class="active"><a href="#search">Search
+						Films</a></li>
+				<li role="presentation"><a href="#insert">Insert Films</a></li>
+			</ul>
+		</div>
 
-		</form>
-		<div style="width: 60%; height: 35%;">
-			<div class="buttonDiv">
-				<h3>STRING</h3>
-				<button id="all-films-button-string">Get All Films</button>
-				<br>
-				<button id="film-by-id-button-string">Get Film By ID</button>
-				<br>
-				<button id="film-by-name-button-string">Get Films By Name</button>
-				<br>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="search">
+				<div id="searchDiv">
+					<form id="films-form" class="form-inline">
+						<div class="form-group">
+							<fieldset>
+								<label for="filmId">Film Id:</label> <input type="text"
+									id="filmId" class="form-control" /> <label id="nameLabel"
+									for="filmId">Film Name:</label> <input type="text"
+									id="filmName" class="form-control" />
+							</fieldset>
+						</div>
+					</form>
+
+					<div class="row">
+						<div class="col-md-4">
+							<h3>STRING</h3>
+							<button type="button" class="btn btn-default"
+								id="all-films-button-string">Get All Films</button>
+							<br>
+							<button type="button" class="btn btn-default"
+								id="film-by-id-button-string">Get Film By ID</button>
+							<br>
+							<button type="button" class="btn btn-default"
+								id="film-by-name-button-string">Get Films By Name</button>
+							<br>
+						</div>
+						<div class="col-md-4">
+							<h3>JSON</h3>
+							<button type="button" class="btn btn-default"
+								id="all-films-button-json">Get All Films</button>
+							<br>
+							<button type="button" class="btn btn-default"
+								id="film-by-id-button-json">Get Film By ID</button>
+							<br>
+							<button type="button" class="btn btn-default"
+								id="film-by-name-button-json">Get Films By Name</button>
+							<br>
+						</div>
+						<div class="col-md-4">
+							<h3>XML</h3>
+							<button type="button" class="btn btn-default"
+								id="all-films-button-xml">Get All Films</button>
+							<br>
+							<button type="button" class="btn btn-default"
+								id="film-by-id-button-xml">Get Film By ID</button>
+							<br>
+							<button type="button" class="btn btn-default"
+								id="film-by-name-button-xml">Get Films By Name</button>
+							<br>
+						</div>
+						<br style="clear: left;" />
+					</div>
+					<h2 id="working" style="display: none">
+						<img src="images/ajax-loader.gif" /> Waiting for server...
+					</h2>
+					<div id="result-div"></div>
+				</div>
 			</div>
-			<div class="buttonDiv">
-				<h3>JSON</h3>
-				<button id="all-films-button-json">Get All Films</button>
-				<br>
-				<button id="film-by-id-button-json">Get Film By ID</button>
-				<br>
-				<button id="film-by-name-button-json">Get Films By Name</button>
-				<br>
+			<div role="tabpanel" class="tab-pane" id="insert">
+				<div id="insertDiv">
+					<form id="insert-form" class="form-vertical">
+						<fieldset>
+							<label for="insertId">ID <input type="text" name="id"
+								id="insertId" class="form-control" />
+							</label> <label for="insertName">Name <input type="text"
+								name="title" id="insertName" class="form-control" />
+							</label> <label for="insertYear">Year <input type="text"
+								name="year" id="insertYear" class="form-control" />
+							</label> <label for="insertDirector">Director <input type="text"
+								name="director" id="insertDirector" class="form-control" />
+							</label> <label for="insertStars">Stars <input type="text"
+								name="stars" id="insertStars" class="form-control" />
+							</label> <label for="insertReview">Review <input type="text"
+								name="review" id="insertReview" class="form-control" />
+							</label><br>
+						</fieldset>
+					</form>
+					<button type="button" class="btn btn-primary"
+						id="insert-film-button">Insert Film</button>
+				</div>
 			</div>
-			<div class="buttonDiv">
-				<h3>XML</h3>
-				<button id="all-films-button-xml">Get All Films</button>
-				<br>
-				<button id="film-by-id-button-xml">Get Film By ID</button>
-				<br>
-				<button id="film-by-name-button-xml">Get Films By Name</button>
-				<br>
-			</div>
-			<br style="clear: left;" />
 		</div>
 	</div>
-	<br />
-	<br>
-	<h2 id="working" style="display: none">
-		<img src="images/ajax-loader.gif" /> Waiting for server...
-	</h2>
-	<div id="result-div"></div>
+
+	<script src="external/jquery/jquery.js"></script>
+	<script src="scripts/myjquery.js"></script>
+	<script src="scripts/jquery-ui.js"></script>
+	<script src="scripts/ajax-utils.js"></script>
+	<script src="js/bootstrap.js"></script>
 	<script>
 		$("button").button();
 		$("#searchDiv", "#insertDiv").controlgroup();
+		$(document).ready(function() {
+			$(".nav-pills a").click(function() {
+				$(this).tab('show');
+			});
+		});
 	</script>
+
 </body>
 </html>

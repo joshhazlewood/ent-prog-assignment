@@ -1,35 +1,23 @@
-body {
+h1 {
+	text-align: center;
+}
+
+#searchDiv {
+	padding-top: 1em;
+}
+
+#result-div {
+	margin-top: 1em;
+}
+
+#nameLabel {
 	padding-left: 0.5em;
-	min-height: 500px;
 }
 
-#title {
-	margin-left: 1em;
-}
-
-.ui-button {
+.btn-default {
 	margin-bottom: 0.5em;
-}
-
-.buttonDiv {
-	float: left;
-	width: 33%;
 }
 
 #insert-film-button {
 	margin-top: 1em;
-}
-
-#insertDiv {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: 1em;
-}
-
-#searchDiv, #result-div, #working, #insertDiv {
-    width: auto;
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-bottom: 1em;
 }
