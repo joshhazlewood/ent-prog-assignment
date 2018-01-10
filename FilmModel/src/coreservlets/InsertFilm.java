@@ -48,7 +48,6 @@ public class InsertFilm extends HttpServlet {
 //		doGet(request, response);
 		FilmDAO fdao = new FilmDAO();
 
-		String id = request.getParameter("id");
 		String title = request.getParameter("title");
 		String year = request.getParameter("year");
 		String director = request.getParameter("director");
@@ -56,10 +55,9 @@ public class InsertFilm extends HttpServlet {
 		String review = request.getParameter("review");
 
 		try {
-			int idAsInt = Integer.parseInt(id);
 			int yearAsInt = Integer.parseInt(year);
 
-			Film filmToInsert = new Film(idAsInt, title, yearAsInt, director, stars, review);
+			Film filmToInsert = new Film(title, yearAsInt, director, stars, review);
 			int result = fdao.insertFilm(filmToInsert);
 			response.setContentType("text/plain");
 			

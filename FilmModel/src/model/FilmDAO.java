@@ -130,7 +130,7 @@ public class FilmDAO {
 	}
 
 	public int insertFilm(Film f) {
-		int id = f.getId();
+		int id = getNextId();
 		String title = f.getTitle();
 		int year = f.getYear();
 		String director = f.getDirector();
@@ -143,9 +143,25 @@ public class FilmDAO {
 			String insertSQL = "insert into films values (" + "\"" + id + "\"" + "," + "\""
 					+ title + "\"" + "," + "\"" + year + "\"" + "," + "\"" + director + "\"" + "," + "\""
 					+ stars + "\"" + "," + "\"" + review + "\"" + ")";
-			System.out.println(insertSQL);
 			int result = stmt.executeUpdate(insertSQL);
 			return result;
+		} catch (SQLException se) {
+			System.out.println(se);
+		}
+		return 0;
+	}
+	
+	public int getNextId() {
+		openConnection();
+		
+		try {
+			String maxIdSQL = "SELECT MAX(id) AS id FROM films;";
+			ResultSet rs1 = stmt.executeQuery(maxIdSQL);
+			int result = 0;
+			while(rs1.next()) {
+				result = rs1.getInt("id");				
+			}
+			return result + 1;
 		} catch (SQLException se) {
 			System.out.println(se);
 		}

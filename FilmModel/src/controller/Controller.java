@@ -55,7 +55,7 @@ public class Controller extends HttpServlet {
 		ArrayList<Film> f = fdao.getFilmByID(10013);
 
 //		films = fdao.getFilmByTitle("187");
-//		Film insertFilm = new Film(11312, "Test Film Title", 2018, "DIRECTOR1", "STARS LIST 1", "EXTENSIVE REVIEW TEST");
+//		Film insertFilm = new Film("Test Film Title 2", 2018, "DIRECTOR1", "STARS LIST 1", "EXTENSIVE REVIEW TEST");
 //		int result = fdao.insertFilm(insertFilm);
 //		System.out.println("did it insert correctly?" + result);
 

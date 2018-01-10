@@ -1,2 +1,6 @@
 /.metadata/
 /.recommenders/
+
+FilmModel/\.classpath
+
+FilmModel/\.settings/org\.eclipse\.jdt\.core\.prefs

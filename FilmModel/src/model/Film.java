@@ -10,6 +10,16 @@ public class Film {
 		this.stars = stars;
 		this.review = review;
 	}
+	
+	public Film(String title, int year, String director, String stars, String review) {
+		super();
+		this.id = 0;
+		this.title = title;
+		this.year = year;
+		this.director = director;
+		this.stars = stars;
+		this.review = review;
+	}
 
 	int id;
 	String title;

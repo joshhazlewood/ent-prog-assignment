@@ -14,19 +14,20 @@ $(function() {
 	$("#insert-film-button").click(insertFilm)
 })
 
+var nameErrorMessage = "No films found by that name.";
+var idErrorMessage = "No film found by that ID.";
+var nameValidationErrorMessage = "No films found by that name.";
+var idMissingErrorMessage = "Please enter a number before searching by ID.";
+var nameMissingErrorMessage = "Please enter a value before searching by name.";
+var serverErrorMessage = "Error retriving data from the server.";
+
+var resultDiv = "#result-div"
+
 function getAllFilmsAsString() {
 	var address = "getAllFilms";
 	
 	showWorkingGif();
-	$.ajax({
-		url: address,
-		method: "GET",
-	}).then(data => { 
-		showStringFilmInfo(data, "#result-div");
-	}, error => {
-		hideWorkingGif();
-		alert("Error retriving data from the server.");
-	});
+	ajaxRequest(address, "", "string");
 }
 
 function getFilmByIdAsString() {
@@ -36,20 +37,11 @@ function getFilmByIdAsString() {
 	var isNum = /^[0-9]+$/.test(escapedVal);
 
 	if( escapedVal == "" || !isNum ) {
-		alert( "Please enter a number before searching by ID." );
+		alert( idMissingErrorMessage );
 		$("#filmId").val("");
 	} else {
 		showWorkingGif();
-		$.ajax({
-			url: address,
-			method: "GET",
-			data: format
-		}).then( data => {
-				showStringFilmInfo( data, "#result-div", "No films found by that ID." );
-		}, error => {
-			hideWorkingGif();
-			alert( "Error retriving data from the server." );
-		} );
+		ajaxRequest(address, format, "string", idErrorMessage);
 	}
 }
 
@@ -59,20 +51,11 @@ function getFilmsByNameAsString() {
 	var format = "name=" + escapedVal.toString();	
 
 	if( escapedVal === "" ) {
-		alert( "Please enter a number before searching by ID." );
+		alert( nameMissingErrorMessage );
 		$("#filmId").val("");
 	} else {
 		showWorkingGif();
-		$.ajax({
-			url: address,
-			method: "GET",
-			data: format
-		}).then( data => {
-				showStringFilmInfo( data, "#result-div", "No films found by that name." );
-		}, error => {
-			hideWorkingGif();
-			alert( "Error retriving data from the server." );
-		} );
+		ajaxRequest(address, format, "string", nameErrorMessage);
 	}
 }
 
@@ -81,16 +64,7 @@ function getAllFilmsAsJson() {
 	var format = "format=json";
 	
 	showWorkingGif();
-	$.ajax({
-		url: address,
-		method: "GET",
-		data: format
-	}).then(data => { 
-		showJsonFilmInfo(data, "#result-div", "", "id");
-	}, error => {
-		hideWorkingGif();
-		alert("Error retriving data from the server.");
-	});
+	ajaxRequest(address, format, "json", "", "id");
 }
 
 function getFilmByIdAsJson() {
@@ -100,20 +74,11 @@ function getFilmByIdAsJson() {
 	var isNum = /^[0-9]+$/.test(escapedVal);
 
 	if( escapedVal == "" || !isNum ) {
-		alert( "Please enter a number before searching by ID." );
+		alert( idMissingErrorMessage );
 		$("#filmId").val("");
 	} else {
 		showWorkingGif();
-		$.ajax({
-			url: address,
-			method: "GET",
-			data: format
-		}).then( data => {
-				showJsonFilmInfo( data, "#result-div", "No films found by that ID.", "id" );
-		}, error => {
-			hideWorkingGif();
-			alert( "Error retriving data from the server." );
-		} );
+		ajaxRequest(address, format, "json", idErrorMessage, "id");
 	}
 }
 
@@ -123,20 +88,11 @@ function getFilmsByNameAsJson() {
 	var format = "format=json&name=" + escapedVal.toString();	
 
 	if( escapedVal === "" ) {
-		alert( "Please enter a number before searching by ID." );
+		alert( nameMissingErrorMessage );
 		$("#filmId").val("");
 	} else {
 		showWorkingGif();
-		$.ajax({
-			url: address,
-			method: "GET",
-			data: format
-		}).then( data => {
-				showJsonFilmInfo( data, "#result-div", "No films found by that name.", "name" );
-		}, error => {
-			hideWorkingGif();
-			alert( "Error retriving data from the server." );
-		} );
+		ajaxRequest(address, format, "json", nameErrorMessage, "name");
 	}
 }
 
@@ -145,16 +101,7 @@ function getAllFilmsAsXml() {
 	var format = "format=xml";
 	
 	showWorkingGif();
-	$.ajax({
-		url: address,
-		method: "GET",
-		data: format
-	}).then(data => { 
-		showXmlFilmInfo(data, "#result-div");
-	}, error => {
-		hideWorkingGif();
-		alert("Error retriving data from the server.");
-	});
+	ajaxRequest(address, format, "xml");
 }
 
 function getFilmByIdAsXml() {
@@ -164,20 +111,11 @@ function getFilmByIdAsXml() {
 	var isnum = /^[0-9]+$/.test(escapedVal);
 	
 	if( escapedVal == "" || !isnum ) {
-		alert( "Please enter a number before searching by ID." );
+		alert( idMissingErrorMessage );
 		$("#filmId").val("");
 	} else {
 		showWorkingGif();
-		$.ajax({
-			url: address,
-			method: "GET",
-			data: format
-		}).then( data => {
-				showXmlFilmInfo( data, "#result-div", "No films found by that ID." );
-		}, error => {
-			hideWorkingGif();
-			alert( "Error retriving data from the server." );
-		} );
+		ajaxRequest(address, format, "xml", idErrorMessage);
 	}
 }
 
@@ -185,22 +123,13 @@ function getFilmsByNameAsXml() {
 	var escapedVal = escape($("#filmName").val());
 	
 	if(escapedVal == "") {
-		alert( "Please enter a value before searching by name." );
+		alert( nameMissingErrorMessage );
 	} else {
 		var address = "getFilmsByName";
 		var format = "format=xml&name=" + escapedVal;
 		
 		showWorkingGif();
-		$.ajax({
-			url: address,
-			method: "GET",
-			data: format
-		}).then( data => {
-				showXmlFilmInfo( data, "#result-div", "No films found by that name." );
-		}, reason => {
-			hideWorkingGif();
-			alert( "Error retriving data from the server." );
-		} );
+		ajaxRequest(address, format, "xml", nameErrorMessage);
 	}	
 }
 
@@ -276,17 +205,18 @@ function insertFilm() {
 	var filmData = $("#insert-form").serialize();
 	
 	if(formIsValid) {
-		showWorkingGif();
+		showWorkingGif("insert");
 		$.ajax({
 			url: address,
 			method: "POST",
 			data: filmData
 		}).then(data => { 
-			hideWorkingGif();
+			hideWorkingGif("insert");
+			clearInputFields();
 			alert("Film was correctly inserted into the database.")
 		}, error => {
-			hideWorkingGif();
-			alert("Error inserting data from the server.");
+			hideWorkingGif("insert");
+			alert("Error inserting film into the database.");
 		});
 	} else {
 		alert("Form is invalid, number fields must be 1-8 in length and other 1-100.");
@@ -294,15 +224,56 @@ function insertFilm() {
 
 }
 
+function ajaxRequest(address, format, dataType, errorMsg, apiType) {
+	
+	switch(dataType) {
+    case "xml":
+    	$.ajax({
+    		url: address,
+    		method: "GET",
+    		data: format
+    	}).then(data => { 
+    		showXmlFilmInfo(data, resultDiv, errorMsg);
+    	}, error => {
+    		hideWorkingGif();
+    		alert( serverErrorMessage );
+    	});
+        break;
+    case "json":
+    	$.ajax({
+    		url: address,
+    		method: "GET",
+    		data: format
+    	}).then(data => { 
+    		showJsonFilmInfo(data, resultDiv, errorMsg, apiType);
+    	}, error => {
+    		hideWorkingGif();
+    		alert( serverErrorMessage );
+    	});
+        break;
+    default:
+    	$.ajax({
+    		url: address,
+    		method: "GET",
+    		data: format
+    	}).then(data => { 
+    		showStringFilmInfo(data, resultDiv, errorMsg);
+    	}, error => {
+    		hideWorkingGif();
+    		alert( serverErrorMessage );
+    	});
+	}
+}
+
 function checkFormIsValid() {
-	var id = escape($("#insertId").val());
+//	var id = escape($("#insertId").val());
 	var title = escape($("#insertName").val());
 	var year = escape($("#insertYear").val());
 	var director = escape($("#insertDirector").val());
 	var stars = escape($("#insertStars").val());
 	var review = escape($("#insertReview").val());
 	
-	var numbersValid = isValidNumber(id) && isValidNumber(year);
+	var numbersValid = isValidNumber(year);
 	var stringsValid = isValidString(title) && isValidString(director) && 
 		isValidString(stars) && isValidString(review)
 		

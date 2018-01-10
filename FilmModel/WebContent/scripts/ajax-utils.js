@@ -139,11 +139,28 @@ function buildHtmlTableFromJson(films) {
 	return table;
 }
 
-function showWorkingGif() {
-	$("#result-div").empty();
-	$("#working").show();
+function showWorkingGif(divToShow) {
+	if(divToShow == "insert") {
+		$("#insertWorking").show();		
+	} else {
+		$("#result-div").empty();
+		$("#working").show();		
+	}
 }
 
-function hideWorkingGif() {
-	$("#working").hide();
+function hideWorkingGif(divToHide) {
+	if(divToHide == "insert") {
+		$("#insertWorking").hide();
+	} else {
+		$("#working").hide();		
+	}
+}
+
+
+function clearInputFields() {
+	$("#insertName").val("");
+	$("#insertYear").val("");
+	$("#insertDirector").val("");
+	$("#insertStars").val("");
+	$("#insertReview").val("");
 }

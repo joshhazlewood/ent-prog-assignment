@@ -40,9 +40,9 @@
 						<div class="form-group">
 							<fieldset>
 								<label for="filmId">Film Id:</label> <input type="text"
-									id="filmId" class="form-control" /> <label id="nameLabel"
-									for="filmId">Film Name:</label> <input type="text"
-									id="filmName" class="form-control" />
+									id="filmId" class="form-control" placeholder="#####" /> <label
+									id="nameLabel" for="filmId">Film Name:</label> <input
+									type="text" id="filmName" class="form-control" />
 							</fieldset>
 						</div>
 					</form>
@@ -96,9 +96,7 @@
 				<div id="insertDiv">
 					<form id="insert-form" class="form-vertical">
 						<fieldset>
-							<label for="insertId">ID <input type="text" name="id"
-								id="insertId" class="form-control" />
-							</label> <label for="insertName">Name <input type="text"
+							<label for="insertName">Name <input type="text"
 								name="title" id="insertName" class="form-control" />
 							</label> <label for="insertYear">Year <input type="text"
 								name="year" id="insertYear" class="form-control" />
@@ -113,6 +111,9 @@
 					</form>
 					<button type="button" class="btn btn-primary"
 						id="insert-film-button">Insert Film</button>
+					<h2 id="insertWorking" style="display: none">
+						<img src="images/ajax-loader.gif" /> Waiting for server...
+					</h2>
 				</div>
 			</div>
 		</div>
