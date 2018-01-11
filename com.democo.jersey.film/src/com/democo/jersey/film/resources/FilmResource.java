@@ -65,21 +65,34 @@ public class FilmResource {
 		return film;
 	}
 	
+	@GET
+	@Produces(MediaType.TEXT_XML)
+	@Path("/name/{name}")
+	public List<Film> getFilmByNameHTML(@PathParam("name") String name) {
+		List<Film> film = fdao.getFilmByTitle(name);
+		if(film==null)
+			throw new RuntimeException("Get: film with name" + name +  " not found");
+		return film;
+	}
+	
 	@POST
 	@Produces(MediaType.TEXT_HTML)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public void newTodo(
-			@FormParam("insertName") String name,
-			@FormParam("insertYear") int year,
-			@FormParam("insertDirector") String director,
-			@FormParam("insertStars") String stars,
-			@FormParam("insertReview") String review,
+	public void newFilm(
+			@FormParam("title") String name,
+			@FormParam("year") int year,
+			@FormParam("director") String director,
+			@FormParam("stars") String stars,
+			@FormParam("review") String review,
 			@Context HttpServletResponse servletResponse
 	) throws IOException {
 		Film film = new Film(name, year, director, stars, review);
-		fdao.insertFilm(film);
-		
-		servletResponse.sendRedirect("../create_todo.html");
+		int inserted = fdao.insertFilm(film);
+		if(inserted == 1) {
+			servletResponse.sendRedirect("../inserted.html");
+		} else {
+			servletResponse.sendRedirect("../index.html");			
+		}
 	}
 
 

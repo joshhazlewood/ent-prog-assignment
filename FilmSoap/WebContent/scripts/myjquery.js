@@ -266,7 +266,6 @@ function ajaxRequest(address, format, dataType, errorMsg, apiType) {
 }
 
 function checkFormIsValid() {
-//	var id = escape($("#insertId").val());
 	var title = escape($("#insertName").val());
 	var year = escape($("#insertYear").val());
 	var director = escape($("#insertDirector").val());

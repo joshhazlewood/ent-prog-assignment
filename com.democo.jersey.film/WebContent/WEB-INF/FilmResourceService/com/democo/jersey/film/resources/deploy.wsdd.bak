@@ -1,0 +1,140 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from FilmResourceService WSDL service -->
+
+  <service name="FilmResource" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://resources.film.jersey.democo.com"/>
+      <parameter name="wsdlServiceElement" value="FilmResourceService"/>
+      <parameter name="schemaQualified" value="http://resources.film.jersey.democo.com,http://model.film.jersey.democo.com"/>
+      <parameter name="wsdlServicePort" value="FilmResource"/>
+      <parameter name="className" value="com.democo.jersey.film.resources.FilmResourceSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="FilmResource"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getFilmById" qname="operNS:getFilmById" xmlns:operNS="http://resources.film.jersey.democo.com" returnQName="retNS:getFilmByIdReturn" xmlns:retNS="http://resources.film.jersey.democo.com" returnType="rtns:Film" xmlns:rtns="http://model.film.jersey.democo.com" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getAllFilms" qname="operNS:getAllFilms" xmlns:operNS="http://resources.film.jersey.democo.com" returnQName="retNS:getAllFilmsReturn" xmlns:retNS="http://resources.film.jersey.democo.com" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://resources.film.jersey.democo.com" returnItemQName="tns:item" xmlns:tns="http://resources.film.jersey.democo.com" soapAction="" >
+      </operation>
+      <operation name="getFilmHTML" qname="operNS:getFilmHTML" xmlns:operNS="http://resources.film.jersey.democo.com" returnQName="retNS:getFilmHTMLReturn" xmlns:retNS="http://resources.film.jersey.democo.com" returnType="rtns:Film" xmlns:rtns="http://model.film.jersey.democo.com" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getFilmByName" qname="operNS:getFilmByName" xmlns:operNS="http://resources.film.jersey.democo.com" returnQName="retNS:getFilmByNameReturn" xmlns:retNS="http://resources.film.jersey.democo.com" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://resources.film.jersey.democo.com" returnItemQName="tns:item" xmlns:tns="http://resources.film.jersey.democo.com" soapAction="" >
+        <parameter qname="pns:name" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="newFilm" qname="operNS:newFilm" xmlns:operNS="http://resources.film.jersey.democo.com" soapAction="" >
+        <parameter qname="pns:name" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:year" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:director" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:stars" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:review" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:servletResponse" xmlns:pns="http://resources.film.jersey.democo.com" type="tns:anyType" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="getAllFilms newFilm getFilmByName getFilmById getFilmHTML"/>
+
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>newFilmResponse"
+        type="java:com.democo.jersey.film.resources.NewFilmResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getAllFilmsResponse"
+        type="java:com.democo.jersey.film.resources.GetAllFilmsResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getFilmHTML"
+        type="java:com.democo.jersey.film.resources.GetFilmHTML"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getFilmHTMLResponse"
+        type="java:com.democo.jersey.film.resources.GetFilmHTMLResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>newFilm"
+        type="java:com.democo.jersey.film.resources.NewFilm"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getFilmById"
+        type="java:com.democo.jersey.film.resources.GetFilmById"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://model.film.jersey.democo.com"
+        qname="ns:Film"
+        type="java:com.democo.jersey.film.model.Film"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getFilmByName"
+        type="java:com.democo.jersey.film.resources.GetFilmByName"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getFilmByNameResponse"
+        type="java:com.democo.jersey.film.resources.GetFilmByNameResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:ArrayOf_xsd_anyType"
+        type="java:java.lang.Object[]"
+        innerType="cmp-ns:anyType" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getFilmByIdResponse"
+        type="java:com.democo.jersey.film.resources.GetFilmByIdResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://resources.film.jersey.democo.com"
+        qname="ns:>getAllFilms"
+        type="java:com.democo.jersey.film.resources.GetAllFilms"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

@@ -46,7 +46,7 @@ public class InsertFilm extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
-		FilmDAO fdao = new FilmDAO();
+		FilmDAO fdao = FilmDAO.getInstance();
 
 		String title = request.getParameter("title");
 		String year = request.getParameter("year");

@@ -14,7 +14,7 @@ public class MainController {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		FilmDAO fdao = new FilmDAO();
+		FilmDAO fdao = FilmDAO.getInstance();
 
 		ArrayList<Film> films = fdao.getAllFilms();
 

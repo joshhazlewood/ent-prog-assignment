@@ -10,8 +10,14 @@ public class FilmDAO {
 	Film oneFilm = null;
 	Connection conn = null;
 	Statement stmt = null;
+	
+	private static FilmDAO fdao = new FilmDAO();
 
-	public FilmDAO() {
+	private FilmDAO() {
+	}
+	
+	public static FilmDAO getInstance( ) {
+	      return fdao;
 	}
 
 	private void openConnection() {
@@ -74,9 +80,10 @@ public class FilmDAO {
 			}
 
 			stmt.close();
-			closeConnection();
 		} catch (SQLException se) {
 			System.out.println(se);
+		} finally {
+			closeConnection();
 		}
 
 		return allFilms;
@@ -96,9 +103,10 @@ public class FilmDAO {
 			}
 
 			stmt.close();
-			closeConnection();
 		} catch (SQLException se) {
 			System.out.println(se);
+		} finally {
+			closeConnection();
 		}
 		ArrayList<Film> filmToReturn = new ArrayList<Film>();
 		filmToReturn.add(oneFilm);
@@ -121,9 +129,10 @@ public class FilmDAO {
 			}
 
 			stmt.close();
-			closeConnection();
 		} catch (SQLException se) {
 			System.out.println(se);
+		} finally {
+			closeConnection();
 		}
 
 		return possibleFilms;
@@ -137,9 +146,8 @@ public class FilmDAO {
 		String stars = f.getStars();
 		String review = f.getReview();
 
-		openConnection();
-
 		try {
+			openConnection();
 			String insertSQL = "insert into films values (" + "\"" + id + "\"" + "," + "\""
 					+ title + "\"" + "," + "\"" + year + "\"" + "," + "\"" + director + "\"" + "," + "\""
 					+ stars + "\"" + "," + "\"" + review + "\"" + ")";
@@ -147,14 +155,16 @@ public class FilmDAO {
 			return result;
 		} catch (SQLException se) {
 			System.out.println(se);
+		} finally {
+			closeConnection();
 		}
 		return 0;
 	}
 	
 	public int getNextId() {
-		openConnection();
 		
 		try {
+			openConnection();
 			String maxIdSQL = "SELECT MAX(id) AS id FROM films;";
 			ResultSet rs1 = stmt.executeQuery(maxIdSQL);
 			int result = 0;
@@ -164,6 +174,8 @@ public class FilmDAO {
 			return result + 1;
 		} catch (SQLException se) {
 			System.out.println(se);
+		} finally {
+			closeConnection();
 		}
 		return 0;
 	}

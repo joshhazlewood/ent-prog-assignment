@@ -35,7 +35,7 @@ public class GetFilmById extends HttpServlet {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		FilmDAO fdao = new FilmDAO();
+		FilmDAO fdao = FilmDAO.getInstance();
 		ArrayList<Film> film;
 		
 		String filmId = request.getParameter("id");

@@ -12,7 +12,7 @@
 <body>
 	<div class="container" id="insertDiv">
 		<h1>Insert Film</h1>
-		<form action="../com.democo.jersey.todo/rest/todos" method="POST">
+		<form action="../com.democo.jersey.film/rest/films" method="POST">
 			<fieldset>
 				<label for="insertName">Name <input type="text" name="title"
 					id="insertName" class="form-control" />
@@ -26,8 +26,9 @@
 					name="review" id="insertReview" class="form-control" />
 				</label><br>
 			</fieldset>
-			<button type="button" class="btn btn-primary" id="insert-film-button">Insert
-				Film</button>
+			<input type="submit" value="Submit" class="btn btn-primary" />
+			<!--  <button type="button"  id="insert-film-button">Insert
+				Film</button>-->
 		</form>
 	</div>
 </body>

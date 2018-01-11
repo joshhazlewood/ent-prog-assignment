@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://resources.film.jersey.democo.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://resources.film.jersey.democo.com" xmlns:intf="http://resources.film.jersey.democo.com" xmlns:tns1="http://model.film.jersey.democo.com" xmlns:tns2="http://http.servlet.javax" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://resources.film.jersey.democo.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.film.jersey.democo.com"/>
+   <import namespace="http://http.servlet.javax"/>
+   <element name="getFilmById">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getFilmByIdResponse">
+    <complexType>
+     <sequence>
+      <element name="getFilmByIdReturn" type="tns1:Film"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getAllFilms">
+    <complexType/>
+   </element>
+   <element name="getAllFilmsResponse">
+    <complexType>
+     <sequence>
+      <element name="getAllFilmsReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_anyType">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <element name="getFilmHTML">
+    <complexType>
+     <sequence>
+      <element name="id" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getFilmHTMLResponse">
+    <complexType>
+     <sequence>
+      <element name="getFilmHTMLReturn" type="tns1:Film"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getFilmByName">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getFilmByNameResponse">
+    <complexType>
+     <sequence>
+      <element name="getFilmByNameReturn" type="impl:ArrayOf_xsd_anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="newFilm">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="year" type="xsd:int"/>
+      <element name="director" type="xsd:string"/>
+      <element name="stars" type="xsd:string"/>
+      <element name="review" type="xsd:string"/>
+      <element name="servletResponse" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="newFilmResponse">
+    <complexType/>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.film.jersey.democo.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://http.servlet.javax"/>
+   <import namespace="http://resources.film.jersey.democo.com"/>
+   <complexType name="Film">
+    <sequence>
+     <element name="director" nillable="true" type="xsd:string"/>
+     <element name="id" type="xsd:int"/>
+     <element name="review" nillable="true" type="xsd:string"/>
+     <element name="stars" nillable="true" type="xsd:string"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+     <element name="year" type="xsd:int"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getAllFilmsRequest">
+
+      <wsdl:part element="impl:getAllFilms" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFilmByNameResponse">
+
+      <wsdl:part element="impl:getFilmByNameResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="newFilmResponse">
+
+      <wsdl:part element="impl:newFilmResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFilmHTMLRequest">
+
+      <wsdl:part element="impl:getFilmHTML" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="newFilmRequest">
+
+      <wsdl:part element="impl:newFilm" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAllFilmsResponse">
+
+      <wsdl:part element="impl:getAllFilmsResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFilmByNameRequest">
+
+      <wsdl:part element="impl:getFilmByName" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFilmByIdRequest">
+
+      <wsdl:part element="impl:getFilmById" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFilmByIdResponse">
+
+      <wsdl:part element="impl:getFilmByIdResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getFilmHTMLResponse">
+
+      <wsdl:part element="impl:getFilmHTMLResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="FilmResource">
+
+      <wsdl:operation name="getFilmById">
+
+         <wsdl:input message="impl:getFilmByIdRequest" name="getFilmByIdRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getFilmByIdResponse" name="getFilmByIdResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllFilms">
+
+         <wsdl:input message="impl:getAllFilmsRequest" name="getAllFilmsRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getAllFilmsResponse" name="getAllFilmsResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFilmHTML">
+
+         <wsdl:input message="impl:getFilmHTMLRequest" name="getFilmHTMLRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getFilmHTMLResponse" name="getFilmHTMLResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFilmByName">
+
+         <wsdl:input message="impl:getFilmByNameRequest" name="getFilmByNameRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getFilmByNameResponse" name="getFilmByNameResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="newFilm">
+
+         <wsdl:input message="impl:newFilmRequest" name="newFilmRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:newFilmResponse" name="newFilmResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="FilmResourceSoapBinding" type="impl:FilmResource">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getFilmById">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getFilmByIdRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getFilmByIdResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAllFilms">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAllFilmsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAllFilmsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFilmHTML">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getFilmHTMLRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getFilmHTMLResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getFilmByName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getFilmByNameRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getFilmByNameResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="newFilm">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="newFilmRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="newFilmResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="FilmResourceService">
+
+      <wsdl:port binding="impl:FilmResourceSoapBinding" name="FilmResource">
+
+         <wsdlsoap:address location="http://localhost:8080/com.democo.jersey.film/services/FilmResource"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

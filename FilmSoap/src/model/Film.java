@@ -1,6 +1,28 @@
 package model;
-
+/**
+ * This Film class allows the creation of film objects
+ * 
+ *@author Josh Hazlewood 
+ *
+ */
 public class Film {
+	
+	private int id;
+	private String title;
+	private int year;
+	private String director;
+	private String stars;
+	private String review;
+	
+	/**
+	 * Constructor for creating film with an known id
+	 * @param id
+	 * @param title
+	 * @param year
+	 * @param director
+	 * @param stars
+	 * @param review
+	 */
 	public Film(int id, String title, int year, String director, String stars, String review) {
 		super();
 		this.id = id;
@@ -10,7 +32,15 @@ public class Film {
 		this.stars = stars;
 		this.review = review;
 	}
-	
+	/**
+	 * Constructor for creating a film without knowing ID
+	 * Used for auto-incrementing when inserting a Film into the database.
+	 * @param title
+	 * @param year
+	 * @param director
+	 * @param stars
+	 * @param review
+	 */
 	public Film(String title, int year, String director, String stars, String review) {
 		super();
 		this.id = 0;
@@ -20,13 +50,6 @@ public class Film {
 		this.stars = stars;
 		this.review = review;
 	}
-
-	int id;
-	String title;
-	int year;
-	String director;
-	String stars;
-	String review;
 
 	public int getId() {
 		return id;

@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		FilmDAO fdao = new FilmDAO();
+		FilmDAO fdao = FilmDAO.getInstance();
 
 		ArrayList<Film> films = fdao.getAllFilms();
 
