@@ -32,8 +32,8 @@ public class FilmDao {
 					"jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:3306/hazlewoj?user=hazlewoj&password=quIsreng4");
 			// conn = DriverManager
 			// .getConnection("jdbc:mysql://localhost:3306/filmdata?user=root&password=Pa55word!");
-			// conn = DriverManager
-			// .getConnection("jdbc:mysql://jh-13118866-ent-prog.c3xzfdg8vm4w.eu-west-2.rds.amazonaws.com:3306/film_data?user=joshhaz&password=Pa55word!");
+//			 conn = DriverManager
+//			 .getConnection("jdbc:mysql://jh-13118866-ent-prog.c3xzfdg8vm4w.eu-west-2.rds.amazonaws.com:3306/film_data?user=joshhaz&password=Pa55word!");
 			stmt = conn.createStatement();
 		} catch (SQLException se) {
 			System.out.println(se);
